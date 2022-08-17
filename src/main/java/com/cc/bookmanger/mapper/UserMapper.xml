@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cc.bookmanger.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.cc.bookmanger.entity.User">
+        <id column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="userName" jdbcType="VARCHAR" property="userName" />
+        <result column="userPassword" jdbcType="VARCHAR" property="userPassword" />
+        <result column="isAdmin" jdbcType="INTEGER" property="isAdmin" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    userId, userName, userPassword, isAdmin
+     </sql>
+
+    <select id="selectByUsernameAndPasswordAndIsAdmin" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where userName= #{userName}
+          and userPassword = #{userPassword}
+          and isAdmin = #{isAdmin}
+        limit 1
+    </select>
+
+    <select id="getUserById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where userId= #{userId}
+        limit 1
+    </select>
+
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where userName = #{userName}
+        limit 1
+    </select>
+
+    <insert id="insertSelective" parameterType="com.cc.bookmanger.entity.vo.RegisterVo">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="userName != null">
+                userName,
+            </if>
+            <if test="userPassword != null">
+                userPassword,
+            </if>
+            <if test="isAdmin != null">
+                isAdmin,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null">
+                #{userPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="isAdmin != null">
+                #{isAdmin,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getUserAll" resultMap="BaseResultMap">
+        select  <include refid="Base_Column_List" />
+        from user
+    </select>
+
+    <update id="updateUserByKey" parameterType="com.cc.bookmanger.entity.User">
+        update user
+        <set>
+            <if test="userName != null">
+                userName = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null">
+                userPassword = #{userPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="isAdmin != null">
+                isAdmin = #{isAdmin,jdbcType=TINYINT},
+            </if>
+        </set>
+        where userId = #{userId,jdbcType=INTEGER}
+    </update>
+</mapper>

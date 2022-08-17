@@ -1,0 +1,22 @@
+server:
+  port: 8092
+  servlet:
+    context-path: /bookManager
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springboot_mysql?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=GMT%2B8
+    username: root
+    password: cc555
+  redis:
+    host: 192.168.230.129
+    port: 6379
+    password: qilin555
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+      enabled: false
+  main:
+    allow-circular-references: true
