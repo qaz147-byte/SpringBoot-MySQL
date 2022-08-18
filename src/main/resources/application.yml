@@ -21,5 +21,6 @@ spring:
   main:
     allow-circular-references: true
 mybatis:
+  # 配置mapper.xml所在路径
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.cc.bookmanger
+  ype-aliases-package: com.cc.bookmanger

@@ -7,8 +7,16 @@ import java.util.List;
 
 public interface UserService {
 
+    /**
+     * @param user 用户登录
+     * @return
+     */
     User login(User user);
 
+    /**
+     * @param token
+     * @param usr
+     */
     void saveUser(String token, User usr);
 
     /**
